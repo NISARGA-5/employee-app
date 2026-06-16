@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: employee-app
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: employee-app
+
+  template:
+    metadata:
+      labels:
+        app: employee-app
+
+    spec:
+      containers:
+      - name: employee-app
+
+        image: us-central1-docker.pkg.dev/project1-494202/my-repo/employee-app:latest
+
+        env:
+        - name: DB_HOST
+          value: postgres-service
+
+        - name: DB_NAME
+          value: employee_db
+
+        - name: DB_USER
+          value: postgres
+
+        - name: DB_PASSWORD
+          value: password
+
+        ports:
+        - containerPort: 5000
