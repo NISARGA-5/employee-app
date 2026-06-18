@@ -20,7 +20,7 @@ spec:
       containers:
       - name: employee-app
 
-        image: us-central1-docker.pkg.dev/project1-494202/my-repo/employee-app:4f9d6b7
+        image: us-central1-docker.pkg.dev/project1-494202/my-repo/employee-app:latest
         env:
         - name: DB_HOST
           value: postgres-service
