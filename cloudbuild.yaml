@@ -5,7 +5,7 @@ steps:
   args:
     - '-c'
     - |
-      gcloud compute ssh bastion-vm \
+      gcloud compute ssh g1mp22cg037@bastion-vm \
       --zone=asia-south1-a \
       --tunnel-through-iap \
       --command="hostname"
