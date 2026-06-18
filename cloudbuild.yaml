@@ -1,21 +1,14 @@
 steps:
 
-# Build Docker image
-- name: 'gcr.io/cloud-builders/docker'
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: bash
   args:
-    - 'build'
-    - '-t'
-    - 'us-central1-docker.pkg.dev/$PROJECT_ID/my-repo/employee-app:latest'
-    - '.'
-
-# Push image
-- name: 'gcr.io/cloud-builders/docker'
-  args:
-    - 'push'
-    - 'us-central1-docker.pkg.dev/$PROJECT_ID/my-repo/employee-app:latest'
-
-images:
-- 'us-central1-docker.pkg.dev/$PROJECT_ID/my-repo/employee-app:latest'
+    - '-c'
+    - |
+      gcloud compute ssh bastion-vm \
+      --zone=asia-south1-a \
+      --tunnel-through-iap \
+      --command="hostname"
 
 options:
   logging: CLOUD_LOGGING_ONLY
