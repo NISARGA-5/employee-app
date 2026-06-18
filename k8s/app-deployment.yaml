@@ -21,6 +21,9 @@ spec:
       - name: employee-app
 
         image: us-central1-docker.pkg.dev/project1-494202/my-repo/employee-app:latest
+
+        imagePullPolicy: Always
+
         env:
         - name: DB_HOST
           value: postgres-service
