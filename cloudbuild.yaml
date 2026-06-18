@@ -1,5 +1,20 @@
 steps:
 
+# Build Docker image
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+    - 'build'
+    - '-t'
+    - 'us-central1-docker.pkg.dev/$PROJECT_ID/my-repo/employee-app:latest'
+    - '.'
+
+# Push Docker image
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+    - 'push'
+    - 'us-central1-docker.pkg.dev/$PROJECT_ID/my-repo/employee-app:latest'
+
+# Deploy to Private GKE through Bastion
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: bash
   args:
@@ -8,7 +23,12 @@ steps:
       gcloud compute ssh g1mp22cg037@bastion-vm \
       --zone=asia-south1-a \
       --tunnel-through-iap \
-      --command="hostname"
+      --command="
+      kubectl apply -f ~/k8s/
+      "
+
+images:
+- 'us-central1-docker.pkg.dev/$PROJECT_ID/my-repo/employee-app:latest'
 
 options:
   logging: CLOUD_LOGGING_ONLY
