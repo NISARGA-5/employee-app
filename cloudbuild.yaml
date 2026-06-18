@@ -24,7 +24,10 @@ steps:
       --zone=asia-south1-a \
       --tunnel-through-iap \
       --command="
-      kubectl apply -f ~/k8s/
+      cd ~/employee-app &&
+      git pull &&
+      kubectl apply -f k8s/ &&
+      kubectl rollout restart deployment/employee-app
       "
 
 images:
